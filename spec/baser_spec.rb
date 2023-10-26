@@ -19,8 +19,6 @@ RSpec.describe Baser do # rubocop:disable Metrics/BlockLength
       end
       it "converts to the default base" do
         expect(Baser.encode(1200)).to eq "mG"
-      end
-      it "converts to the default base" do
         expect(Baser.encode(7_653_101)).to eq "Fe12"
       end
       it "raise an error if not an integer" do
@@ -34,6 +32,7 @@ RSpec.describe Baser do # rubocop:disable Metrics/BlockLength
     describe ".decode" do # rubocop:disable Metrics/BlockLength
       it "converts to the base 10" do
         expect(Baser.decode("Fe12")).to eq 7_653_101
+        expect(Baser.decode("mG")).to eq 1_200
       end
       it "returns a digit" do
         expect(Baser.decode("1")).to eq 0
