@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors = ["Jim"]
   spec.email = ["jag.arnold.go@gmail.com"]
 
-  spec.summary = "Simple and flexible way to convert base ANY to base10"
+  spec.summary = "Simple and flexible way to convert base 10 to baseANY and vice versa"
   spec.homepage = "https://github.com/goldendragon1988/baser"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
