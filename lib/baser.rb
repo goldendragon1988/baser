@@ -11,6 +11,11 @@ module Baser
   class << self
     attr_writer :characters
 
+    def setup
+      yeild self
+      true
+    end
+
     def characters
       @characters ||= DEFAULT_CHARACTERS
     end
