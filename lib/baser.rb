@@ -16,7 +16,8 @@ module Baser
     end
 
     def encode(number)
-      raise Error, "#{number} is not an Integer" unless number.is_a? Integer
+      raise Error, "not an integer" unless number.is_a? Integer
+      return characters[number] if number.zero?
 
       str = ""
       while number.positive?
@@ -27,13 +28,13 @@ module Baser
     end
 
     def decode(string)
-      raise Error, "#{string} is not a string" unless string.is_a? String
+      return unless validate?(string)
 
-      base10 = 0
+      num = 0
       string.reverse.each_char.with_index do |char, index|
-        base10 += hash[char] * (base**index)
+        num += hash[char] * (base**index)
       end
-      base10
+      num
     end
 
     private
@@ -44,6 +45,20 @@ module Baser
 
     def hash
       Hash[characters.map.with_index.to_a]
+    end
+
+    def validate?(string)
+      raise Error, "parameter is empty" if string == ""
+      raise Error, "not a string" unless string.is_a? String
+      raise Error, "one or more characters are not included in the set of characters" unless character_checker(string)
+
+      true
+    end
+
+    def character_checker(string)
+      excluded_character = string.chars.find { |char| !characters.include? char }
+
+      excluded_character.nil?
     end
   end
 end
