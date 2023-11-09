@@ -17,6 +17,8 @@ module Baser
     end
 
     def characters
+      raise Error, "set of characters should be greater than 10 characters" if @characters && @characters.length <= 10
+
       @characters ||= DEFAULT_CHARACTERS
     end
 
@@ -55,7 +57,11 @@ module Baser
     def validate?(string)
       raise Error, "parameter is empty" if string == ""
       raise Error, "not a string" unless string.is_a? String
-      raise Error, "one or more characters are not included in the set of characters" unless character_checker(string)
+
+      unless character_checker(string)
+        raise Error,
+              "one or more characters are not included in the initial set of characters"
+      end
 
       true
     end

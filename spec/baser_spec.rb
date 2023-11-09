@@ -46,13 +46,13 @@ RSpec.describe Baser do # rubocop:disable Metrics/BlockLength
       it "raise an error if one of the characters are not included in the selected set" do
         expect { Baser.decode("0") }.to raise_error do |error|
           expect(error).to be_a(Baser::Error)
-          expect(error.message).to eq("one or more characters are not included in the set of characters")
+          expect(error.message).to eq("one or more characters are not included in the initial set of characters")
         end
       end
       it "raise an error if one of the characters are not included in the selected set" do
         expect { Baser.decode("ab0c") }.to raise_error do |error|
           expect(error).to be_a(Baser::Error)
-          expect(error.message).to eq("one or more characters are not included in the set of characters")
+          expect(error.message).to eq("one or more characters are not included in the initial set of characters")
         end
       end
       it "raise an error if not an integer" do
@@ -86,6 +86,18 @@ RSpec.describe Baser do # rubocop:disable Metrics/BlockLength
     describe ".decode" do
       it "converts to the base 10" do
         expect(Baser.decode("Fe12")).to eq 7_406_884
+      end
+    end
+  end
+
+  context "less than 10 characters" do
+    before do
+      Baser.characters = "0123456789".each_char.map { |c| c }
+    end
+    it "should raise an error" do
+      expect { Baser.characters }.to raise_error do |error|
+        expect(error).to be_a(Baser::Error)
+        expect(error.message).to eq("set of characters should be greater than 10 characters")
       end
     end
   end
